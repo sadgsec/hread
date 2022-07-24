@@ -12,12 +12,6 @@ import (
 //CREATE TABLE testuno ( id SERIAL, title TEXT, body TEXT);
 //export postgresql://user:secret@localhost
 
-type testuno struct {
-	id    int
-	title string
-	body  string
-}
-
 type hreadapp struct {
 	Dbpool *pgxpool.Pool
 }
@@ -25,25 +19,14 @@ type hreadapp struct {
 func dbHandler(dbpool *pgxpool.Pool) http.Handler {
 	fn := func(w http.ResponseWriter, r *http.Request) {
 		fmt.Println("Request to ", r.RequestURI)
-		fmt.Fprintf(w, "henlo")
 		if r.RequestURI == "/list" {
-			list(w, r, dbpool)
+			err := list(w, r, dbpool)
+			fmt.Println(err)
+		} else {
+			fmt.Fprintf(w, "henlo")
 		}
 	}
 	return http.HandlerFunc(fn)
-}
-
-func list(w http.ResponseWriter, req *http.Request, dbpool *pgxpool.Pool) {
-	var id int
-	var title, body string
-	err := dbpool.QueryRow(context.Background(), "select * from testuno").Scan(&id, &title, &body)
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "QueryRow failed: %v\n", err)
-		os.Exit(1)
-	}
-	w.Write([]byte(title))
-	w.Write([]byte("<br>"))
-	w.Write([]byte(body))
 }
 
 func main() {
