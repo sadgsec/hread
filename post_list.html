@@ -1,0 +1,16 @@
+<html>
+<body>
+<ul>
+    {{ range .Posts }}
+    <li>{{ . }}</li>
+    {{ end }}
+</ul>
+
+<form method=POST id=newpost>
+    <textarea form=newpost name=content>
+        Content
+    </textarea>
+    <input type="submit">
+</form>
+</body>
+</html>
