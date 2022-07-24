@@ -2,12 +2,13 @@ DROP TABLE Board;
 DROP TABLE Post;
 
 CREATE TABLE Board (
-Id SERIAL,
-longname TEXT,
-shortname TEXT
+Id serial primary key,
+longname text,
+shortname text
 );
 
 CREATE TABLE Post (
-Id SERIAL,
-content TEXT
+Id serial,
+boardid serial references Board(Id)
+content text
 );

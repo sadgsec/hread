@@ -10,6 +10,10 @@ import (
 	"github.com/jackc/pgx/v4/pgxpool"
 )
 
+type postList struct{
+    Posts []string
+}
+
 func list(w http.ResponseWriter, req *http.Request, dbpool *pgxpool.Pool) (err error) {
 	if req.Method == "POST" {
 		content := req.FormValue("content")
