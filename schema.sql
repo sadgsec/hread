@@ -9,6 +9,6 @@ shortname text
 
 CREATE TABLE Post (
 Id serial,
-boardid serial references Board(Id)
+boardid serial references Board(Id),
 content text
 );

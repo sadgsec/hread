@@ -22,8 +22,14 @@ func dbHandler(dbpool *pgxpool.Pool) http.Handler {
 		if r.RequestURI == "/list" {
 			err := list(w, r, dbpool)
 			fmt.Println(err)
+		} else if r.RequestURI == "/" {
+			err := index(w, r, dbpool)
+			fmt.Println(err)
 		} else {
-			fmt.Fprintf(w, "henlo")
+			shortname := r.RequestURI[1:]
+			fmt.Println("Request for: ", shortname)
+			err := boardView(w, r, dbpool, shortname)
+			fmt.Println(err)
 		}
 	}
 	return http.HandlerFunc(fn)

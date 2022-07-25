@@ -1,0 +1,10 @@
+<html>
+<body>
+    <h2>Current Boards</h2>
+    <ul>
+    {{ range .Boards }}
+    <li><a href="/{{.Shortname}}">{{.Longname}}</a></li>
+    {{ end }}
+    </ul>
+</body>
+</html>
